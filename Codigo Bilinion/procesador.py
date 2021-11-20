@@ -14,6 +14,7 @@ def finalizar():
 def captura():
 	root.destroy()
 	import foto
+#Se solicita resultado del procesamiento
 
 #Se genera la interaz de salida
 root = Tk()
@@ -24,6 +25,7 @@ root.iconbitmap("bilinion.ico")
 root.geometry("250x320")
 miFrame = Frame(root, width=250, height=400)
 miFrame.pack()
+detect()
 lbl1=Label(miFrame, text="Nivel Aprox. de Bilirrubina", fg="black",font=("Times New Roman",15)).place(x=10, y=20)
 lbl2=Label(miFrame, text="Nivel Aprox. de Ictericia", fg="black",font=("Times New Roman",15)).place(x=10, y=100)
 Button(miFrame, text="Repetir",command=(captura)).place(x=80,y=250)

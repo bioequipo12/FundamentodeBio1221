@@ -1,52 +1,67 @@
 import cv2
 import numpy as np
+from tkinter import *
+from tkinter import filedialog
+from tkinter import messagebox
+from PIL import Image
+from PIL import ImageTk
+import imutils
+
+image = cv2.imread("prueba.jpg")
+i=0
+b=0
 
 def dibujar(mask,color):
+  global i	
   contornos,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL,
       cv2.CHAIN_APPROX_SIMPLE)
-  for c in contornos:
+  for (i,c) in enumerate (contornos):
     area = cv2.contourArea(c)
-    if area > 3000:
+    if (300 < area):
       M = cv2.moments(c)
       if (M["m00"]==0): M["m00"]=1
       x = int(M["m10"]/M["m00"])
       y = int(M['m01']/M['m00'])
-      nuevoContorno = cv2.convexHull(c)
-      cv2.circle(frame,(x,y),7,(0,255,0),-1)
-      cv2.putText(frame,'{},{}'.format(x,y),(x+10,y), font, 0.75,(0,255,0),1,cv2.LINE_AA)
-      cv2.drawContours(frame, [nuevoContorno], 0, color, 3)
+      cv2.drawContours(image,[c],0,color,2)
+      cv2.putText(image, str(i+1), (x-10,y+10),1, 2,(0,0,0),2)
+      return i
 
-cap = cv2.VideoCapture(0)
 
-azulBajo = np.array([100,100,20],np.uint8)
-azulAlto = np.array([125,255,255],np.uint8)
 
-amarilloBajo = np.array([5,100,5],np.uint8)
-amarilloAlto = np.array([50,255,255],np.uint8)
 
-redBajo1 = np.array([0,100,20],np.uint8)
-redAlto1 = np.array([5,255,255],np.uint8)
+Amarillo1Bajo = np.array([21,100,100],np.uint8)
+Amarillo1Alto = np.array([25,255,255],np.uint8)
 
-redBajo2 = np.array([175,100,20],np.uint8)
-redAlto2 = np.array([179,255,255],np.uint8)
+Amarillo2Bajo = np.array([17,100,100],np.uint8)
+Amarillo2Alto = np.array([21,255,255],np.uint8)
+
+Amarillo3Bajo = np.array([25,100,100],np.uint8)
+Amarillo3Alto = np.array([26,255,255],np.uint8)
+
+Amarillo4Bajo = np.array([26,100,100],np.uint8)
+Amarillo4Alto = np.array([30,255,255],np.uint8)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
-while True:
-
-  ret,frame = cap.read()
-
-  if ret == True:
-    frameHSV = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
-    maskAzul = cv2.inRange(frameHSV,azulBajo,azulAlto)
-    maskAmarillo = cv2.inRange(frameHSV,amarilloBajo,amarilloAlto)
-    maskRed1 = cv2.inRange(frameHSV,redBajo1,redAlto1)
-    maskRed2 = cv2.inRange(frameHSV,redBajo2,redAlto2)
-    maskRed = cv2.add(maskRed1,maskRed2)
-    dibujar(maskAzul,(255,0,0))
-    dibujar(maskAmarillo,(0,255,255))
-    dibujar(maskRed,(0,0,255))
-    cv2.imshow('frame',frame)
-    if cv2.waitKey(1) & 0xFF == ord('s'):
-      break
-cap.release()
+while (b <= 20):
+	if True:  
+		frameHSV = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
+		maskAmarillo1 = cv2.inRange(frameHSV,Amarillo1Bajo,Amarillo1Alto)
+		maskAmarillo2 = cv2.inRange(frameHSV,Amarillo2Bajo,Amarillo2Alto)
+		maskAmarillo3 = cv2.inRange(frameHSV,Amarillo3Bajo,Amarillo3Alto)
+		maskAmarillo4 = cv2.inRange(frameHSV,Amarillo4Bajo,Amarillo4Alto)
+		dibujar(maskAmarillo1,(21,255,255))
+		a1=i
+		dibujar(maskAmarillo2,(17,255,255))
+		a2=i
+		dibujar(maskAmarillo3,(25,255,255))
+		a3=i
+		dibujar(maskAmarillo4,(0,255,255))
+		a4=i
+		cv2.imshow("prueba",image)
+		print(i,a1,a2,a3,a4)
+		b += 1
+		if cv2.waitKey(1) & 0xFF == ord('s'):
+			break
+print(a1,a2,a3,a4)
+valores()
 cv2.destroyAllWindows()
