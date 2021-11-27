@@ -7,10 +7,13 @@ from PIL import Image
 from PIL import ImageTk
 import imutils
 
-image = cv2.imread("prueba.jpg")
+image = cv2.imread("imagen_0.png")
 i=0
 b=0
-
+a1=0
+a2=0
+a3=0
+a4=0
 def dibujar(mask,color):
   global i	
   contornos,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL,
@@ -42,7 +45,7 @@ Amarillo4Bajo = np.array([26,100,100],np.uint8)
 Amarillo4Alto = np.array([30,255,255],np.uint8)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
-while (b <= 20):
+while (b <= 0):
 	if True:  
 		frameHSV = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
 		maskAmarillo1 = cv2.inRange(frameHSV,Amarillo1Bajo,Amarillo1Alto)
@@ -57,11 +60,8 @@ while (b <= 20):
 		a3=i
 		dibujar(maskAmarillo4,(0,255,255))
 		a4=i
-		cv2.imshow("prueba",image)
-		print(i,a1,a2,a3,a4)
 		b += 1
 		if cv2.waitKey(1) & 0xFF == ord('s'):
 			break
-print(a1,a2,a3,a4)
-valores()
+print (a1,a2,a3,a4)
 cv2.destroyAllWindows()
