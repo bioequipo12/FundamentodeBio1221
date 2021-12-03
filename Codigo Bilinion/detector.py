@@ -7,7 +7,7 @@ from PIL import Image
 from PIL import ImageTk
 import imutils
 
-image = cv2.imread("imagen_0.png")
+image = cv2.imread("beben1.jpg")
 i=0
 b=0
 a1=0
