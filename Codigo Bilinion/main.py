@@ -16,7 +16,6 @@ def call():
 raiz = Tk()
 raiz.title ("Bilinion")
 raiz.resizable (False,False)
-raiz.iconbitmap("bilinion.ico")
 raiz.geometry("250x320")
 raiz.config(bg="gray")
 miFrame = Frame(raiz, width=250, height=400)
