@@ -8,7 +8,7 @@ from PIL import Image
 from PIL import ImageTk
 import imutils
 
-img = cv2.imread("bebem.jpg")
+img = cv2.imread("prueba.png")
 index= ["color", "color_name" , "hex", "R","G","B"]
 csv=pd.read_csv("colors.csv",names=index,header=None)
 clicked=False
